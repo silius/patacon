@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 3.891 s <<< FAILURE! - in TestSuite
+getRandomNameNoAuth(UserTests)  Time elapsed: 0.006 s  <<< FAILURE!
+java.lang.NullPointerException
+	at UserTests.getRandomNameNoAuth(UserTests.java:26)
+
+getSameName(UserTests)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.NullPointerException
+	at UserTests.getSameName(UserTests.java:50)
+
+putName(UserTests)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.NullPointerException
+	at UserTests.putName(UserTests.java:17)
+
