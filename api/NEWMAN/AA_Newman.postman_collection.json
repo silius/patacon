@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "dd0b7268-6857-41b7-b8c8-9be47bacb8a1",
+		"name": "AA_Newman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Validar status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab799423-e699-4887-80ae-4fde8d7c4296",
+						"exec": [
+							"pm.test(\"Verifica status\", function() {\r",
+							"    pm.expect(pm.response.text()).to.eql('{\"status\":\"Listos para el examen\"}');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-coffee-testing.herokuapp.com/v1/examen/status",
+					"protocol": "https",
+					"host": [
+						"api-coffee-testing",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"v1",
+						"examen",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar putName vacio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32d644f3-a0b5-49bd-841c-e089d6d7479e",
+						"exec": [
+							"pm.test(\"Name not provided\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Name was not provided\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://api-coffee-testing.herokuapp.com/v1/examen/updateName",
+					"protocol": "https",
+					"host": [
+						"api-coffee-testing",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"v1",
+						"examen",
+						"updateName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar getRandomName NOlogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "66157679-60bc-47c0-aee9-d93a284159b6",
+						"exec": [
+							"pm.test(\"Login First\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Please login first\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-coffee-testing.herokuapp.com/v1/examen/randomName",
+					"protocol": "https",
+					"host": [
+						"api-coffee-testing",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"v1",
+						"examen",
+						"randomName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar getRandomName con parametros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c9a6cc8-ab02-490c-9719-2d9b179fea09",
+						"exec": [
+							"pm.test(\"gotName\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.not.null;\r",
+							"    pm.globals.set(\"nombre\", jsonData.name)\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-coffee-testing.herokuapp.com/v1/examen/randomName",
+					"protocol": "https",
+					"host": [
+						"api-coffee-testing",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"v1",
+						"examen",
+						"randomName"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar SameName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77e1351a-d2b4-4bcd-a600-1f6a214f68cb",
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(pm.variables.get(\"nombre\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"{{nombre}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-coffee-testing.herokuapp.com/v1/examen/sameName",
+					"protocol": "https",
+					"host": [
+						"api-coffee-testing",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"v1",
+						"examen",
+						"sameName"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "testpass",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "testuser",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "dac18e22-271d-4c20-a0e1-1beeab06c799",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e1e137db-6f88-459a-98fa-498f5c923060",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
